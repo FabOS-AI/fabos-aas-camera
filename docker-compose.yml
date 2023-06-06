@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  aas-camera:
+    image: fabos4ai/fabos-aas-camera:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+
+  aas-gui:
+    image: eclipsebasyx/aas-gui:v230403
+    ports:
+      - "3000:3000"
