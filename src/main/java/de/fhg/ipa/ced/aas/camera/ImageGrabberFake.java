@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Base64;
 
 public class ImageGrabberFake implements IImageGrabber{
@@ -13,9 +15,8 @@ public class ImageGrabberFake implements IImageGrabber{
 
     public ImageGrabberFake() {
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("image.jpg").getFile());
-            image = ImageIO.read(file);
+            InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("image.jpg");
+            image = ImageIO.read(resourceStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
