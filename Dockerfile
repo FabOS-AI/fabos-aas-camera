@@ -4,9 +4,11 @@ MAINTAINER Tim Sokollek (tim.sokollek@ipa.fraunhofer.de)
 RUN apt update && \
     apt install -y curl jq
 
-COPY target/aas.camera-*.jar /app/app.jar
+
 COPY src/main/docker/startup.sh /app/startup.sh
 RUN chmod +x /app/startup.sh
+
+COPY target/aas.camera-0.0.1-SNAPSHOT-jar-with-dependencies.jar /app/app.jar
 
 WORKDIR /app
 
