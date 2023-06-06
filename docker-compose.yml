@@ -4,9 +4,13 @@ services:
   aas-camera:
     image: fabos4ai/fabos-aas-camera:0.0.1-SNAPSHOT
     ports:
-      - "8080:8080"
+      - "4000:4000"
+      - "4001:4001"
 
   aas-gui:
     image: eclipsebasyx/aas-gui:v230403
     ports:
       - "3000:3000"
+    environment:
+      VITE_REGISTRY_PATH: "http://localhost:4000/registry"
+      VITE_AAS_SERVER_PATH: "http://localhost:4001/aasServer"
