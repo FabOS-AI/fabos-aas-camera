@@ -3,6 +3,7 @@ version: '3'
 services:
   aas-camera:
     image: fabos4ai/fabos-aas-camera:0.0.1-SNAPSHOT
+    build: .
     ports:
       - "4000:4000"
       - "4001:4001"
