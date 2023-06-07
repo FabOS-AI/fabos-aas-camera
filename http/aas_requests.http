@@ -1,0 +1,19 @@
+### AAS Registry - GET aas
+http://localhost:4000/registry/api/v1/registry
+
+### AAS Registry - GET aas by ID
+http://localhost:4000/registry/api/v1/registry/fabos.aas.device.camera
+
+### AAS Server - OPTIONS operation
+OPTIONS http://localhost:4001/aasServer/shells/fabos.aas.device.camera/aas/submodels/Camera/submodel/submodelElements/snapshot/invoke
+
+### AAS Server - POST operation
+POST http://localhost:4001/aasServer/shells/fabos.aas.device.camera/aas/submodels/Camera/submodel/submodelElements/snapshot/invoke
+Content-Type: application/json
+
+{
+  "inputArguments": [],
+  "inoutputArguments": [],
+  "requestId": "df8e7d45-0d12-40eb-bdd4-8628ada5bb68",
+  "timeout": 60000
+}
