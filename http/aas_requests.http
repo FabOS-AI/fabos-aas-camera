@@ -17,3 +17,12 @@ Content-Type: application/json
   "requestId": "df8e7d45-0d12-40eb-bdd4-8628ada5bb68",
   "timeout": 60000
 }
+
+### AAS Submodels - POST operation
+POST http://localhost:4002/submodels/Camera/submodel/submodelElements/snapshot/invoke
+Content-Type: application/json
+
+{
+  "requestId": "df8e7d45-0d12-40eb-bdd4-8628ada5bb68",
+  "timeout": 60000
+}
