@@ -3,10 +3,8 @@ package de.fhg.ipa.ced.aas.camera;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Base64;
 
 public class ImageGrabberFake implements IImageGrabber{

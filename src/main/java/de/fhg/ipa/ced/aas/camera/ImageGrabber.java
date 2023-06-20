@@ -16,8 +16,8 @@ public class ImageGrabber implements IImageGrabber{
     FrameGrabber grabber;
     Java2DFrameConverter converter;
 
-    public ImageGrabber() {
-        grabber = new OpenCVFrameGrabber(0);
+    public ImageGrabber(int deviceNumber) {
+        grabber = new OpenCVFrameGrabber(deviceNumber);
         converter = new Java2DFrameConverter();
         try {
             grabber.start();

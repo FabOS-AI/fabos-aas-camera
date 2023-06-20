@@ -15,7 +15,9 @@ import org.eclipse.basyx.components.registry.RegistryComponent;
 import org.eclipse.basyx.components.registry.configuration.BaSyxRegistryConfiguration;
 import org.eclipse.basyx.components.registry.configuration.RegistryBackend;
 import org.eclipse.basyx.components.servlet.submodel.SubmodelServlet;
+import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
 import org.eclipse.basyx.submodel.metamodel.api.identifier.IIdentifier;
+import org.eclipse.basyx.submodel.metamodel.api.submodelelement.dataelement.IProperty;
 import org.eclipse.basyx.submodel.metamodel.map.Submodel;
 import org.eclipse.basyx.vab.protocol.http.server.BaSyxContext;
 import org.eclipse.basyx.vab.protocol.http.server.BaSyxHTTPServer;
@@ -28,6 +30,27 @@ public class Application {
 	public static final IIdentifier CAMERA_ASSET_ID = new CustomId("fabos.asset.device.camera");
 	public static final String CAMERA_ASSET_ID_SHORT = "CameraAsset";
 	public static void main(String[] args) {
+		IImageGrabber imageGrabber;
+		String deviceNumber = System.getenv("DEVICE_NUMBER");
+		String standalone = System.getenv("STANDALONE");
+
+		if (deviceNumber != null) {
+			imageGrabber = new ImageGrabber(Integer.getInteger(deviceNumber));
+		} else {
+			imageGrabber = new ImageGrabberFake();
+		}
+
+		CameraSubmodel sm = new CameraSubmodel(imageGrabber);
+		hostPreconfiguredSubmodel(sm);
+
+		if (standalone == null || Boolean.parseBoolean(standalone)) {
+			startStandaloneEnvironment(sm);
+		} else {
+			registerSubmodelToExistingAAS(sm, System.getenv("AAS_REGISTRY"), System.getenv("AAS_ID"));
+		}
+	}
+
+	private static void startStandaloneEnvironment(CameraSubmodel sm) {
 		startRegistry();
 		startAASServer();
 
@@ -39,16 +62,26 @@ public class Application {
 
 		manager.createAAS(aas, SERVER_URL);
 
-		IImageGrabber imageGrabber;
-		if (true) {
-			imageGrabber = new ImageGrabberFake();
-		} else{
-			imageGrabber = new ImageGrabber();
-		}
-		CameraSubmodel sm = new CameraSubmodel(imageGrabber);
-		hostPreconfiguredSubmodel(sm);
 		SubmodelDescriptor descriptor = new SubmodelDescriptor(sm, "http://localhost:4002/submodels/Camera");
 		registry.register(aas.getIdentification(), descriptor);
+	}
+
+	private static void registerSubmodelToExistingAAS(CameraSubmodel sm, String registryUrl, String aasId) {
+		IAASRegistry registry = new AASRegistryProxy(registryUrl);
+		ConnectedAssetAdministrationShellManager manager = new ConnectedAssetAdministrationShellManager(registry);
+
+		IIdentifier identifier = new CustomId(aasId);
+		String ip = getIpFromConsulInfoSM(manager, identifier);
+
+		SubmodelDescriptor descriptor = new SubmodelDescriptor(sm, "http://" + ip + ":4002/submodels/Camera");
+		registry.register(identifier, descriptor);
+	}
+
+	private static String getIpFromConsulInfoSM(ConnectedAssetAdministrationShellManager manager, IIdentifier aasId) {
+		IIdentifier consulSMId = new CustomId("ConsulInfo-"+aasId.getId());
+		ISubmodel consulInfoSM = manager.retrieveSubmodel(aasId, consulSMId);
+		IProperty ipProp = (IProperty) consulInfoSM.getSubmodelElement("IP");
+		return ipProp.getValue().toString();
 	}
 
 	private static void startRegistry() {
