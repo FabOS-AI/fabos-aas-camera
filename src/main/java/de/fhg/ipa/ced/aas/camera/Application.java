@@ -35,7 +35,7 @@ public class Application {
 		String standalone = System.getenv("STANDALONE");
 
 		if (deviceNumber != null) {
-			imageGrabber = new ImageGrabber(Integer.getInteger(deviceNumber));
+			imageGrabber = new ImageGrabber(Integer.parseInt(deviceNumber));
 		} else {
 			imageGrabber = new ImageGrabberFake();
 		}
