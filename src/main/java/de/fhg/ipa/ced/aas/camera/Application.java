@@ -23,8 +23,9 @@ import org.eclipse.basyx.vab.protocol.http.server.BaSyxContext;
 import org.eclipse.basyx.vab.protocol.http.server.BaSyxHTTPServer;
 public class Application {
 
-	public static final String SERVER_URL = "http://localhost:4001/aasServer";
-	public static final String REGISTRY_URL = "http://localhost:4000/registry";
+	public static String HOST;
+	public static String SERVER_URL;
+	public static String REGISTRY_URL;
 	public static final IIdentifier CAMERA_AAS_ID = new CustomId("fabos.aas.device.camera");
 	public static final String CAMERA_AAS_ID_SHORT = "Camera";
 	public static final IIdentifier CAMERA_ASSET_ID = new CustomId("fabos.asset.device.camera");
@@ -33,6 +34,14 @@ public class Application {
 		IImageGrabber imageGrabber;
 		String deviceNumber = System.getenv("DEVICE_NUMBER");
 		String standalone = System.getenv("STANDALONE");
+		HOST = System.getenv("HOST");
+
+		if (HOST == null) {
+			HOST = "localhost";
+		}
+
+		SERVER_URL  = "http://" + HOST + ":4001/aasServer";
+		REGISTRY_URL = "http://" + HOST + ":4000/registry";
 
 		if (deviceNumber != null) {
 			imageGrabber = new ImageGrabber(Integer.parseInt(deviceNumber));
@@ -62,7 +71,7 @@ public class Application {
 
 		manager.createAAS(aas, SERVER_URL);
 
-		SubmodelDescriptor descriptor = new SubmodelDescriptor(sm, "http://localhost:4002/submodels/Camera");
+		SubmodelDescriptor descriptor = new SubmodelDescriptor(sm, "http://" + HOST + ":4002/submodels/Camera");
 		registry.register(aas.getIdentification(), descriptor);
 	}
 
