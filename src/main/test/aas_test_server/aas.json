@@ -1,0 +1,25 @@
+{
+  "modelType": {
+    "name": "AssetAdministrationShell"
+  },
+  "idShort": "Camera",
+  "identification": {
+    "idType": "Custom",
+    "id": "{{aas_id}}"
+  },
+  "endpoints": [],
+  "asset": {
+    "modelType": {
+      "name": "Asset"
+    },
+    "dataSpecification": [],
+    "embeddedDataSpecifications": [],
+    "idShort": "CameraAsset",
+    "identification": {
+      "idType": "Custom",
+      "id": "fabos.asset.device.camera"
+    },
+    "kind": "Instance"
+  },
+  "submodels": []
+}

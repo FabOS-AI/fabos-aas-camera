@@ -1,0 +1,52 @@
+{
+  "modelType": {
+    "name": "AssetAdministrationShellDescriptor"
+  },
+  "idShort": "Camera",
+  "identification": {
+    "idType": "Custom",
+    "id": "{{aas_id}}"
+  },
+  "endpoints": [],
+  "asset": {
+    "modelType": {
+      "name": "Asset"
+    },
+    "dataSpecification": [],
+    "embeddedDataSpecifications": [],
+    "idShort": "CameraAsset",
+    "identification": {
+      "idType": "Custom",
+      "id": "fabos.asset.device.camera"
+    },
+    "kind": "Instance"
+  },
+  "submodels": [
+    {
+      "modelType": {
+        "name": "SubmodelDescriptor"
+      },
+      "idShort": "ConsulInfo",
+      "identification": {
+        "idType": "Custom",
+        "id": "ConsulInfo-{{aas_id}}"
+      },
+      "endpoints": [
+        {
+          "type": "http",
+          "address": "http://{{resource_ip}}:{{aas_server_port}}/aasServer/shells/{{aas_id}}/aas/submodels/ConsulInfo/submodel"
+        }
+      ],
+      "semanticId": {
+        "keys": [
+          {
+            "type": "ConceptDescription",
+            "local": false,
+            "value": "https://fab-os.org/ConsulInfo",
+            "idType": "IRI"
+          }
+        ]
+      }
+    }
+  ]
+}

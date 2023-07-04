@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  aas-server:
+    image: eclipsebasyx/aas-server:1.4.0
+    build: ./aas_test_server
+    ports:
+      - "${AAS_SERVER_PORT}:4001"
+    environment:
+      RESOURCE_IP: "${DEV_HOST_IP}"
+      AAS_ID: "${AAS_ID}"
+      AAS_SERVER_PORT: "${AAS_SERVER_PORT}"
+      AAS_REGISTRY_PORT: "${AAS_REGISTRY_PORT}"
+
+  aas-registry:
+    image: aas-camera-test-registry:1.4.0
+    build: ./aas_test_registry
+    ports:
+      - "${AAS_REGISTRY_PORT}:4000"
+    environment:
+      RESOURCE_IP: "${DEV_HOST_IP}"
+      AAS_ID: "${AAS_ID}"
+      AAS_SERVER_PORT: "${AAS_SERVER_PORT}"
+      AAS_REGISTRY_PORT: "${AAS_REGISTRY_PORT}"
+
+  aas-gui:
+    image: eclipsebasyx/aas-gui:v230403
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_REGISTRY_PATH: "http://localhost:5555/registry"
+#      VITE_AAS_SERVER_PATH: "http://localhost:4001/aasServer"

@@ -1,0 +1,30 @@
+### PUT /api/v1/registry/{aasId} Register AAS
+
+PUT http://{{aas_registry_host}}:{{aas_registry_port}}/{{aas_registry_context_path}}/api/v1/registry/ccdc0ce1-ce8a-4856-9b0c-ae47ac0dea6d
+Content-Type: application/json
+
+{
+  "modelType": {
+    "name": "AssetAdministrationShellDescriptor"
+  },
+  "idShort": "Camera",
+  "identification": {
+    "idType": "Custom",
+    "id": "ccdc0ce1-ce8a-4856-9b0c-ae47ac0dea6d"
+  },
+  "endpoints": [],
+  "asset": {
+    "modelType": {
+      "name": "Asset"
+    },
+    "dataSpecification": [],
+    "embeddedDataSpecifications": [],
+    "idShort": "CameraAsset",
+    "identification": {
+      "idType": "Custom",
+      "id": "fabos.asset.device.camera"
+    },
+    "kind": "Instance"
+  },
+  "submodels": []
+}

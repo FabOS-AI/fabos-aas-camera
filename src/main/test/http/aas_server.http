@@ -1,0 +1,143 @@
+### PUT /shells/{aasId}
+PUT http://{{aas_server_host}}:{{aas_server_port}}/{{aas_server_context_path}}/shells/{{aas_id}}
+Content-Type: application/json
+
+{
+  "modelType": {
+    "name": "AssetAdministrationShell"
+  },
+  "idShort": "Camera",
+  "identification": {
+    "idType": "Custom",
+    "id": "{{aas_id}}"
+  },
+  "endpoints": [],
+  "asset": {
+    "modelType": {
+      "name": "Asset"
+    },
+    "dataSpecification": [],
+    "embeddedDataSpecifications": [],
+    "idShort": "CameraAsset",
+    "identification": {
+      "idType": "Custom",
+      "id": "fabos.asset.device.camera"
+    },
+    "kind": "Instance"
+  },
+  "submodels": []
+}
+
+### PUT /shells/{aasId}/aas/submodels/{submodelIdShort}
+PUT http://{{aas_server_host}}:{{aas_server_port}}/{{aas_server_context_path}}/shells/{{aas_id}}/aas/submodels/ConsulInfo
+Content-Type: application/json
+
+{
+  "idShort": "ConsulInfo",
+  "identification": {
+    "idType": "Custom",
+    "id": "ConsulInfo-{{aas_id}}"
+  },
+  "dataSpecification": [],
+  "embeddedDataSpecifications": [],
+  "modelType": {
+    "name": "Submodel"
+  },
+  "kind": "Instance",
+  "submodelElements": [
+    {
+      "modelType": {
+        "name": "Property"
+      },
+      "dataSpecification": [],
+      "embeddedDataSpecifications": [],
+      "kind": "Instance",
+      "idShort": "IP",
+      "valueType": "string",
+      "value": "192.168.153.48",
+      "semanticId": {
+        "keys": [
+          {
+            "type": "Property",
+            "local": false,
+            "value": "https://fab-os.org/ConsulInfo/IP",
+            "idType": "IRI"
+          }
+        ]
+      },
+      "parent": {
+        "keys": [
+          {
+            "type": "AssetAdministrationShell",
+            "local": true,
+            "value": "{{aas_id}}",
+            "idType": "Custom"
+          },
+          {
+            "type": "Submodel",
+            "local": true,
+            "value": "ConsulInfo-{{aas_id}}",
+            "idType": "Custom"
+          }
+        ]
+      }
+    },
+    {
+      "modelType": {
+        "name": "Property"
+      },
+      "dataSpecification": [],
+      "embeddedDataSpecifications": [],
+      "kind": "Instance",
+      "idShort": "HostName",
+      "valueType": "string",
+      "value": "SOCP2001-20011111",
+      "semanticId": {
+        "keys": [
+          {
+            "type": "Property",
+            "local": false,
+            "value": "https://fab-os.org/ConsulInfo/HostName",
+            "idType": "IRI"
+          }
+        ]
+      },
+      "parent": {
+        "keys": [
+          {
+            "type": "AssetAdministrationShell",
+            "local": true,
+            "value": "{{aas_id}}",
+            "idType": "Custom"
+          },
+          {
+            "type": "Submodel",
+            "local": true,
+            "value": "ConsulInfo-{{aas_id}}",
+            "idType": "Custom"
+          }
+        ]
+      }
+    }
+  ],
+  "semanticId": {
+    "keys": [
+      {
+        "type": "ConceptDescription",
+        "local": false,
+        "value": "https://fab-os.org/ConsulInfo",
+        "idType": "IRI"
+      }
+    ]
+  },
+  "parent": {
+    "keys": [
+      {
+        "type": "AssetAdministrationShell",
+        "local": true,
+        "value": "{{aas_id}}",
+        "idType": "Custom"
+      }
+    ]
+  }
+}
