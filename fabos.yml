@@ -1,0 +1,22 @@
+---
+name: Intel RealSense
+serviceVendorId: 4b407e9f-2154-401d-a4e1-b1497c5619c1
+description: |
+  The Intel RealSense depth camera is a stereo solution, offering quality depth for a variety of
+  applications. It's wide field of view is perfect for applications such as robotics or augmented
+  and virtual reality, where seeing as much of the scene as possible is vitally important. With a
+  range up to 10m, this small form factor camera can be integrated into any solution with ease,
+  and comes complete with our Intel RealSense SDK 2.0 and cross-platform support.
+shortDescription: |
+  The Intel RealSense depth camera is a stereo solution, offering quality depth for a variety of
+  applications.
+coverImageFilename: realsense_d435.jpg
+serviceCategoryName: Application
+version:
+  serviceOptionCategories: []
+  serviceRequirements: []
+  serviceRepositories: []
+  deploymentDefinition:
+    deploymentType: DOCKER_COMPOSE
+    composeFilename: docker-compose.yml
+
