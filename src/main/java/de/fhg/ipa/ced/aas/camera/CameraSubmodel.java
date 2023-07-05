@@ -3,8 +3,14 @@ package de.fhg.ipa.ced.aas.camera;
 import org.eclipse.basyx.aas.metamodel.map.descriptor.CustomId;
 import org.eclipse.basyx.submodel.metamodel.api.identifier.IIdentifier;
 import org.eclipse.basyx.submodel.metamodel.api.qualifier.haskind.ModelingKind;
+import org.eclipse.basyx.submodel.metamodel.api.reference.enums.KeyElements;
+import org.eclipse.basyx.submodel.metamodel.api.reference.enums.KeyType;
 import org.eclipse.basyx.submodel.metamodel.map.Submodel;
+import org.eclipse.basyx.submodel.metamodel.map.qualifier.Identifiable;
+import org.eclipse.basyx.submodel.metamodel.map.reference.Key;
+import org.eclipse.basyx.submodel.metamodel.map.reference.Reference;
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.Blob;
+import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.ReferenceElement;
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.property.Property;
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.property.valuetype.ValueType;
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.operation.Operation;
@@ -19,6 +25,7 @@ public class CameraSubmodel extends Submodel {
     public static final IIdentifier SM_ID = new CustomId("fabos.submodel.device.camera");
     public static final String OPERATION_ID_SHORT = "snapshot";
     public static final String PROPERTY_ID_SHORT = "image";
+    public static final String SEMANTIC_ID_REFERENCE_ELEMENT_VALUE = "fabos_camera_bp";
 
     IImageGrabber imageGrabber;
     public CameraSubmodel(IImageGrabber imageGrabber) {
@@ -32,6 +39,9 @@ public class CameraSubmodel extends Submodel {
         snapshot.setOutputVariables(createOutputVariables());
         addSubmodelElement(snapshot);
 
+        super.setSemanticId(new Reference(
+                new Key(KeyElements.REFERENCEELEMENT, false, SEMANTIC_ID_REFERENCE_ELEMENT_VALUE, KeyType.CUSTOM)
+        ));
         this.imageGrabber = imageGrabber;
     }
 
