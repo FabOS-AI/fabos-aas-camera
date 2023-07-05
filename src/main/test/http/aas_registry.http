@@ -1,3 +1,6 @@
+### PUT /api/v1/registry/{aasId} GET AAS
+GET http://{{aas_registry_host}}:{{aas_registry_port}}/{{aas_registry_context_path}}/api/v1/registry/ccdc0ce1-ce8a-4856-9b0c-ae47ac0dea6d
+
 ### PUT /api/v1/registry/{aasId} Register AAS
 
 PUT http://{{aas_registry_host}}:{{aas_registry_port}}/{{aas_registry_context_path}}/api/v1/registry/ccdc0ce1-ce8a-4856-9b0c-ae47ac0dea6d
