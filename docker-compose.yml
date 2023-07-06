@@ -10,7 +10,7 @@ services:
       - "4002:4002"
 
   aas-gui:
-    image: eclipsebasyx/aas-gui:v230403
+    image: eclipsebasyx/aas-gui:v230703
     ports:
       - "3000:3000"
     environment:
