@@ -15,6 +15,8 @@ public class ImageGrabber implements IImageGrabber{
 
     FrameGrabber grabber;
     Java2DFrameConverter converter;
+    Frame frame;
+    private volatile boolean running = true;
 
     public ImageGrabber(int deviceNumber) {
         grabber = new OpenCVFrameGrabber(deviceNumber);
@@ -24,14 +26,26 @@ public class ImageGrabber implements IImageGrabber{
         } catch (FrameGrabber.Exception e) {
             throw new RuntimeException(e);
         }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> running = false));
+
+        Thread thread = new Thread(() -> {
+            while (running) {
+                readFrame();
+            }
+        });
+        thread.start();
     }
-    public String getBase64Frame() {
-        Frame frame;
+
+    void readFrame() {
         try {
             frame = grabber.grab();
         } catch (FrameGrabber.Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getBase64Frame() {
         BufferedImage image = converter.getBufferedImage(frame);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         try {
